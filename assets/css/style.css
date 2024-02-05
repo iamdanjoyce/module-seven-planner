@@ -1,5 +1,5 @@
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   line-height: 1;
 }
@@ -13,13 +13,12 @@ textarea {
   padding: 10px;
 }
 
-header {
+.jumbotron {
   text-align: center;
   background-color: transparent;
   color: black;
   border-radius: 0;
   border-bottom: 10px solid black;
-  padding: 60px;
 }
 
 .description {
@@ -29,6 +28,8 @@ header {
 .time-block {
   text-align: center;
   border-radius: 15px;
+  border: solid;
+  padding: 20px;
 }
 
 .row {
@@ -38,9 +39,13 @@ header {
 }
 
 .hour {
-  background-color: #ffffff;
+  background-color: #2ea1b6;
   color: #000000;
   border-top: 1px dashed #000000;
+}
+
+.time-slot {
+  border: 1px solid white;
 }
 
 .past {
@@ -59,10 +64,10 @@ header {
 }
 
 .saveBtn {
-  border-left: 1px solid black;
+  border: 1px solid black;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
-  background-color: #06aed5;
+  background-color: #9482b0;
   color: white;
 }
 
