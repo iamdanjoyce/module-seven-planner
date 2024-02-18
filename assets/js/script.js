@@ -2,7 +2,7 @@
 function displayCurrentDay() {
   var today = new Date();
   var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  return today.toLocaleDateString('en-US', options);
+  return today.toLocaleDateString('en-UK', options);
 }
 
 // Update time block colors based on past, present, or future
@@ -25,29 +25,45 @@ function updateTimeBlockColors() {
 
 // Save button functionality for text areas, storing data in local storage
 function handleSaveButtonClick() {
-  $(".saveBtn").on("click", function (event) {
-    var calendarItem = $(this).prev().children("textarea").val();
-    var timeSlot = $(this).parent().attr("id");
-    localStorage.setItem(timeSlot, calendarItem);
+  $(".btn-secondary").on("click", function (event) {
+    // Find the text area associated with the clicked save button
+    var timeSlot = $(this).attr("id");
+    var calendarItem = $(this).closest('.row').find("textarea").val();
+    
+    // Check if both time slot and calendar item are valid
+    if (timeSlot && calendarItem.trim() !== "") {
+      localStorage.setItem(timeSlot, calendarItem);
+      console.log("Data saved to local storage:", timeSlot, calendarItem);
+    } else {
+      console.error("Error: Unable to save data to local storage.");
+    }
   });
 }
 
-// Display saved events from local storage upon refresh
+// save event to local storage
 function displaySavedEvents() {
-  $(".hour").each(function () {
+  $(".calendar-item").each(function () {
     var timeSlot = $(this).attr("id");
     var savedEvent = localStorage.getItem(timeSlot);
 
     if (savedEvent) {
-      var eventText = $("<p>").text(savedEvent);
-      $(this).next().append(eventText);
+      $(this).val(savedEvent); // Update the value of the text area with the saved event
     }
   });
 }
 
 $(document).ready(function () {
+  console.log("Document ready!");
+
   $("#currentDay").text(displayCurrentDay());
+  console.log("Current day displayed:", displayCurrentDay());
+
   updateTimeBlockColors();
+  console.log("Time block colors updated.");
+
   handleSaveButtonClick();
+  console.log("Save button click handler added.");
+
   displaySavedEvents();
+  console.log("Saved events displayed.");
 });
