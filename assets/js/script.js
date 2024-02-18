@@ -24,11 +24,11 @@ function updateTimeBlockColors() {
 }
 
 // Save button functionality for text areas, storing data in local storage
-function handleSaveButtonClick() {
-  $(".btn-secondary").on("click", function (event) {
+const handleSaveButtonClick = () => {
+  $(".btn-secondary").on("click", (event) => {
     // Find the text area associated with the clicked save button
-    var timeSlot = $(this).attr("id");
-    var calendarItem = $(this).closest('.row').find("textarea").val();
+    const timeSlot = $(event.currentTarget).attr("id");
+    const calendarItem = $(event.currentTarget).closest('.row').find("textarea").val();
     
     // Check if both time slot and calendar item are valid
     if (timeSlot && calendarItem.trim() !== "") {
@@ -38,19 +38,29 @@ function handleSaveButtonClick() {
       console.error("Error: Unable to save data to local storage.");
     }
   });
-}
+};
+
 
 // save event to local storage
-function displaySavedEvents() {
-  $(".calendar-item").each(function () {
-    var timeSlot = $(this).attr("id");
-    var savedEvent = localStorage.getItem(timeSlot);
+const displaySavedEvents = () => {
+  $(".calendar-item").each(function() {
+    const timeSlot = $(this).attr("id");
+    const savedEvent = localStorage.getItem(timeSlot);
 
     if (savedEvent) {
-      $(this).val(savedEvent); // Update the value of the text area with the saved event
+      $(this).val(savedEvent);
     }
   });
-}
+};
+
+$(".calendar-item").on('input', function() {
+  const timeSlot = $(this).attr("id");
+  const eventValue = $(this).val();
+  localStorage.setItem(timeSlot, eventValue);
+});
+
+displaySavedEvents();
+
 
 $(document).ready(function () {
   console.log("Document ready!");
